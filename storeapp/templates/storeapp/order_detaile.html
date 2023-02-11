@@ -1,0 +1,194 @@
+{% extends 'storeapp/base.html' %}
+{% load cart %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+    body{
+    background:#eee;
+}
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: 1rem;
+}
+.text-reset {
+    --bs-text-opacity: 1;
+    color: inherit!important;
+}
+a {
+    color: #5465ff;
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container-fluid">
+
+        <div class="container">
+          <!-- Title -->
+          <a class="navbar-brand text-white" style="pointer-events: none;">
+            <img src="{% static 'images/aliexpress.jpg' %}" height="33px">
+          </a>
+          <div class="d-flex justify-content-between align-items-center py-3">
+            <h3 style="color: black;">INVOICE</h3><br><br>
+            <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> </h2>
+          </div>
+        
+          <!-- Main content -->
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- Details -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="mb-3 d-flex justify-content-between">
+                    <div>
+                      <span class="me-3">{{order.date}}</span>
+                      <span class="me-3">#{{order.code}}</span>
+                      <span class="me-3"></span>
+                      {% if order.status %}
+                      <span class="badge rounded-pill bg-success">SUCCESSFUL</span>
+                      {% else %}
+                      <span class="badge rounded-pill bg-warning">PENDING</span>
+                      {% endif %}
+                    </div>
+                    <div class="d-flex">
+                      <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
+                      <div class="dropdown">
+                        <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
+                          <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <table class="table table-borderless">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="d-flex mb-2">
+                            <div class="flex-shrink-0">
+                              <img src="{{order.product.image.url}}" alt="" width="35" class="img-fluid">
+                            </div>
+                            <div class="flex-lg-grow-1 ms-3">
+                              <h6 class="small mb-0"><a href="#" class="text-reset">{{order.product.name}}</a></h6>
+                              <span class="small">Color: Black</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{order.quantity}}</td>
+                        <td class="text-end">${{order.product.price}}</td>
+                      </tr>
+                      
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="2">Order No</td>
+                        <td class="text-end">{{order.code}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Subtotal</td>
+                        <td class="text-end">{{order.quantity|multiply:order.price|currency}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Shipping</td>
+                        <td class="text-success text-end">Free</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Discount (Code:)</td>
+                        <td class="text-danger text-end">-$0.00</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td colspan="2">TOTAL</td>
+                        <td class="text-end">{{order.quantity|multiply:order.price|currency}}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <!-- Payment -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h3 class="h6">Payment Status</h3>
+                     
+                      Total: {{order.quantity|multiply:order.price|currency}} <span class="badge bg-success rounded-pill">PAID</span></p>
+                    </div>
+                    <div class="col-lg-6">
+                      <h3 style="font-size: 25px;" class="h6">Billing address</h3>
+                      <address>
+                        <strong style="font-size: 14px;">{{order.user.first_name}} {{order.user.last_name}}</strong><br>
+                        <strong style="font-size: 14px;">Country:</strong> {{order.country}}<br>
+                        <strong style="font-size: 14px;">State:</strong> {{order.state}}<br>
+                        <strong style="font-size: 14px;">City:</strong>{{order.city}}<br>
+                        <strong style="font-size: 14px;">Street Address:</strong>{{order.address}}<br>
+                        <strong style="font-size: 14px;">Zip~Code:</strong>{{order.zip_code}}<br>
+                        
+                      </address>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <!-- Customer Notes -->
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h3 class="h6">Product Detailes</h3>
+                  <p>{{order.product.description}}</p>
+                </div>
+              </div>
+              <div class="card mb-4">
+                <!-- Shipping information -->
+                <div class="card-body">
+                  <h3 class="h6">Shipping Information</h3>
+                  <strong>FedEx</strong>
+                  <span ><a href="#" class="text-decoration-underline" style="color: red;" target="_blank">{{order.shipping_no}}</a> <i class="bi bi-box-arrow-up-right"></i> </span><br>
+                  <strong>Shipping Status:</strong>
+                  {% if order.shipping_status %}
+                  <span class="badge rounded-pill bg-success">SHIPPED</span>
+                  {% else %}
+                  <span class="badge rounded-pill bg-warning">PROCESSING</span>
+                  {% endif %}
+                  <hr>
+                  <h3 class="h6">Customer Info</h3>
+                  <address>
+                    <strong>{{order.user.first_name}} {{order.user.last_name}}</strong><br>
+                    {{order.adress}}
+                    <abbr title="Phone">Phone:</abbr> {{order.phone}}<br>
+                    <abbr title="Phone">Email:</abbr> {{order.email}}
+                  </address>
+                  
+                  <img src="{{order.qr_code.url}}" width="140px">
+                  <button class="btn btn-primary fas fa-print" onclick="window.print()">Print this page</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>   
+
+        
+    {% endblock %}
+</body>
+</html>

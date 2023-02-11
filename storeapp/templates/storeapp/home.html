@@ -1,0 +1,118 @@
+{%extends 'storeapp/base.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-4">
+        <div class="row">
+    
+            <div class="col-lg-3">
+    
+                <div class="list-group" id="myList">
+                    {% for category in categories %}
+                    <a href="/?category={{category.id}}" class="list-group-item text-white" style="background: #343a40">
+                        <i class="fa fa-shopping-cart" style="margin-right: 15px; font-size: 20px;"></i>{{category.name}}</a>
+                    {% endfor %}
+                </div>
+    
+    
+    
+            </div>
+    
+            <div id="products" class="col-lg-8">
+                {% for product in products %}
+                <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                          <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                            <img src="{{product.image.url}}"
+                              class="w-100" />
+                            <a href="#!">
+                              <div class="hover-overlay">
+                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                          <h5>{{product.name}}</h5>
+                          <div class="d-flex flex-row">
+                            <div class="text-warning mb-1 me-2">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                            <span>{{product.review}}</span>
+                          </div>
+                          <div class="mt-1 mb-0 text-muted small">
+                            <span>100% quality</span>
+                            <span class="text-primary"> • </span>
+                            <span></span>
+                            <span class="text-primary"> • </span>
+                            <span>Best selling<br /></span>
+                          </div>
+                          <div class="mb-2 text-muted small">
+                            <span>Up too 70% off</span>
+                            <span class="text-primary"> • </span>
+                            <span></span>
+                            <span class="text-primary"> • </span>
+                            <span><br /></span>
+                          </div>
+                          <p class="text-truncate mb-4 mb-md-0">
+                            {{product.description}}
+                          </p>
+                        </div>
+                        <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                          <div class="d-flex flex-row align-items-center mb-1">
+                            <h4 class="mb-1 me-1">${{product.price}}</h4>
+                            <span class="text-danger"><s>${{product.old_price}}</s></span>
+                          </div>
+                          <h6 class="text-success">Free shipping</h6>
+                          <div class="d-flex flex-column mt-4">
+                            {% if product|is_in_cart:request.session.cart %}
+    <div class="row no-gutters">
+        <form action="/" method="post" class="col-lg-2">
+            {% csrf_token %}
+            <input hidden type="text" value="{{product.id}}" name="product">
+            <input hidden type="text" value="True" name="remove">
+            <input type="submit" value="-" style="color: red;" class="btn btn-light btn-block">
+        </form>
+        <div class=" text-center mt-2 text-black col">{{product|cart_quantity:request.session.cart}} in Cart</div>
+        <form action="/" method="post" class="col-lg-2">
+            {% csrf_token %}
+            <input hidden type="text" value="{{product.id}}" name="product">
+            <input type="submit" value="+" style="color: green;" class="btn btn-light btn-block">
+        </form>
+    </div>
+    {% else %}
+    <form method="post" action="/" class="btn btn-block">
+        {% csrf_token %}
+        <input hidden type="text" value="{{product.id}}" name="product">
+        <button type="submit" class="btn btn-primary btn-sm" type="button">Add To Cart</button>
+    </form>
+    {% endif %}
+    <button class="btn btn-primary btn-sm" type="button"><a style="color: white;" href="{% url 'storeapp:product_detaile' product.id %}">Details</a></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                {% endfor %}    
+            </div>
+            
+            <a style="font-size: 25px;" class="fas fa-pencil-alt nav-link text-black" href="{% url 'storeapp:reviews' %}">Reviews</a>
+            
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

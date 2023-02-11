@@ -1,0 +1,124 @@
+{% extends 'storeapp/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+{% block content %}
+<section>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-xl-8 text-center">
+        <h3 class="mb-4">Top Reviews</h3>
+        <p class="mb-4 pb-2 mb-md-5 pb-md-0">
+          Some reviews from our consumers
+        </p>
+      </div>
+    </div>
+  
+    <div class="row text-center">
+      <div class="col-md-4 mb-5 mb-md-0">
+        <div class="d-flex justify-content-center mb-4">
+          <img src="{% static 'images/person1.jpg' %}"
+            class="rounded-circle shadow-1-strong" width="150" height="150" />
+        </div>
+        <h5 class="mb-3">Gonzales Juan Pablo</h5>
+        <h6 class="text-primary mb-3"> 
+          <ul class="list-unstyled d-flex justify-content-center mb-0">
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+          </ul>
+        </h6>
+        <p class="px-xl-3">
+          <i class="fas fa-quote-left pe-2"></i> I have been hoping to get a new PS5 console,
+          but the price was a bit out of line, when i came across this promo, i could not believe my eyes
+          because of how low the prices were, but guess who has a PS5 console now. 
+        </p>
+        
+      </div>
+      <div class="col-md-4 mb-5 mb-md-0">
+        <div class="d-flex justify-content-center mb-4">
+          <img src="{% static 'images/person2.png' %}"
+            class="rounded-circle shadow-1-strong" width="150" height="150" />
+        </div>
+        <h5 class="mb-3">Sandra Alexis</h5>
+        <h6 class="text-primary mb-3"> 
+          <ul class="list-unstyled d-flex justify-content-center mb-0">
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+          </ul>
+        </h6>
+        <p class="px-xl-3">
+          <i class="fas fa-quote-left pe-2"></i> My friends, has been laughing at my iphone7 for the
+          longest time, but this promo has helped me get an Iphone12 Pro Max, at a very little cost
+          i am the one laughing now. 
+        </p>
+        
+      </div>
+      <div class="col-md-4 mb-0">
+        <div class="d-flex justify-content-center mb-4">
+          <img src="{% static 'images/person3.jpg' %}"
+            class="rounded-circle shadow-1-strong" width="150" height="150" />
+        </div>
+        <h5 class="mb-3">Kunle John</h5>
+        <h6 class="text-primary mb-3"> 
+          <ul class="list-unstyled d-flex justify-content-center mb-0">
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+            <li>
+              <i class="fas fa-star fa-sm text-warning"></i>
+            </li>
+          </ul>
+        </h6>
+        <p class="px-xl-3">
+          <i class="fas fa-quote-left pe-2"></i> Special thanks to Jack Ma, and the Alibaba team, for
+          making this promo open to africans, and nigerians especially, this christmas don sure 😁.  
+        </p>
+       
+      </div>
+    </div>
+  </section>
+{% endblock %}
+</body>
+</html>
